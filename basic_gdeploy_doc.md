@@ -1,17 +1,16 @@
 #### Introduction of gdeploy and how to use gdeploy to configure glusterfs: 
--
 
 This document is intended to give a basic overview of the gdeploy tool like,
 what is gdeploy, what does it do, and how you can use it.
 
-What is glusterfs?
+##### What is glusterfs?
 
 GlusterFS is a scale-out network-attached storage file system. It has found applications 
 including cloud computing, streaming media services, and content delivery networks. GlusterFS 
 was developed originally by Gluster, Inc., then by Red Hat, Inc., after their purchase of 
 Gluster in 2011.
 
-What is gdeploy?
+##### What is gdeploy?
 
 gdeploy is an automation tool that uses Ansible to simplify setting up glusterfs 
 file system for known configurations. You can easily deploy and configure glusterfs 
@@ -28,24 +27,24 @@ dependencies. It only needs to installed on the machines from where you want to
 manage glusterfs so no need to install on the servers that you are managing. You must install 
 ansible version 1.9.2 or higher to use gdeploy.
 
-How gdeploy works?
+##### How gdeploy works?
 
 gdeploy depends on configuration file to make changes to machines which are listed 
 inside the [host] section config file. Config file is defined by user.
 
-Why gdeploy to install glusterfs?
+##### Why gdeploy to install glusterfs?
 
 Setting up a backend filesystem for glusterfs becomes a tedious task as the number of
 servers/bricks increase. Glusterfs being is a highly scalable software solution provides 
 the user ability to create a storage cluster with large number of nodes.
 
-Why  gdeploy and not Ansible to deploy  glusterfs?
+##### Why  gdeploy and not Ansible to deploy  glusterfs?
 
 gdeploy automates deployment of glusterfs for known configurations while providing you with 
 flexibility of tweaking important parameters tailored to your needs. This is a rather 
 tedious and repetitive task even using ansible playbooks alone.
 
-gdeploy configuration file can be used for:
+###### gdeploy configuration file can be used for:
 
     # [hosts] section includes ip addresses of all the machines which you want to peer probe.
     # Backend setup configurations on any number of machines or nodes.
