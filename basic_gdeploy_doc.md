@@ -21,11 +21,11 @@ Or
 
 
 It's a python based automation tool that can be used to deploy and configure
-glusterfs file system across multiples machines. Gdeploy must be run from a
+`glusterfs` file system across multiples machines. Gdeploy must be run from a
 machine that has ansible installed on it. Ansible is one of gdeploy's
 dependencies. It only needs to installed on the machines from where you want to
 manage glusterfs so no need to install on the servers that you are managing. You must install 
-ansible version 1.9.2 or higher to use gdeploy.
+`ansible version 1.9.2` or higher to use gdeploy.
 
 ##### How gdeploy works?
 
