@@ -215,9 +215,9 @@ where you’ll be storing your files/data.
 You need to have done all the below steps before you can begin writing your
 first config file.
 
-*. Should have glusterfs-client and glusterfs-servers running
-#. Should have gdeploy installed
-#. Create passwordless ssh login for all the nodes that will used as cluster.
+*  Should have glusterfs-client and glusterfs-servers running
+*  Should have gdeploy installed
+*  Create passwordless ssh login for all the nodes that will used as cluster.
   In simple words, create passwordless ssh login for all the machines which
   will be listed inside the [hosts] section.
 
@@ -234,11 +234,11 @@ Otherwise, it wil throw an error.
 
 Below are the section's names that we would need to write our config file.
 
-#. [hosts]
-#. [backend-setup]
-#. [peer]
-#. [volume]
-#. [clients]
+* [hosts]
+* [backend-setup]
+* [peer]
+* [volume]
+* [clients]
 
 
 #### Below is the sample of 2*2 distributed replication config file.
