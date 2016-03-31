@@ -178,10 +178,10 @@ Download gdeploy ( .rpm file for Fedora OS ) from here→ http://download.gluste
 
 Prerequisites to install gdeploy:
 
-  ansible>=1.9  
-  python>=2.6  
-  python(abi) = 2.7
-  python-eventlet
+  * ansible>=1.9  
+  * python>=2.6  
+  * python(abi) = 2.7
+  * python-eventlet
 
 These are the commands that needs to be executed to install the prerequisites on Fedora 23 VM.
 
