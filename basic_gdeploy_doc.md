@@ -67,10 +67,10 @@ gdeploy configuration file can be used for:
 There are two ways to install gdeploy. This documentation is based on installation process
  on Fedora 23 on Virtual Machine Manager. 
 
-  Clone it via github repository
-  Using Operating System’s package manager (use rpm package manager for Fedora 23 OS)
+1.  Clone it via github repository
+2.  Using Operating System’s package manager (use rpm package manager for Fedora 23 OS)
 
-#####  Installation procedure for gdeploy using github clone.
+#####  Installation procedure for gdeploy using github clone:
 
  Before we begin installing gdeploy, there are some prerequisites packages that you should 
  already have installed on your computer to use gdeploy.
@@ -178,15 +178,15 @@ Download gdeploy ( .rpm file for Fedora OS ) from here→ http://download.gluste
 
 Prerequisites to install gdeploy:
 
-    *  ansible>=1.9
-    *  python>=2.6
-    *  python(abi) = 2.7
-    *  python-eventlet
+  ansible>=1.9  
+  python>=2.6  
+  python(abi) = 2.7
+  python-eventlet
 
 These are the commands that needs to be executed to install the prerequisites on Fedora 23 VM.
 
-    *  dnf install ansible
-    *  dnf install python-eventlet
+      dnf install ansible
+      dnf install python-eventlet
 
 When you installed the above packages, go ahead and install the gdeploy by running the 
 below command from the directory where you downloaded it. You need to be the root user 
