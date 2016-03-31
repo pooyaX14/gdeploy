@@ -12,9 +12,9 @@ Gluster in 2011.
 
 ##### What is gdeploy?
 
-gdeploy is an automation tool that uses Ansible to simplify setting up glusterfs 
+gdeploy is an automation tool that uses Ansible to simplify setting up `glusterfs` 
 file system for known configurations. You can easily deploy and configure glusterfs 
-software across multiple machines using gdeploy tool. You must install ansible version 1.9.2 
+software across multiple machines using gdeploy tool. You must install `ansible version 1.9.2` 
 or higher to use gdeploy.
 
 Or
@@ -30,7 +30,7 @@ manage glusterfs so no need to install on the servers that you are managing. You
 ##### How gdeploy works?
 
 gdeploy depends on configuration file to make changes to machines which are listed 
-inside the [host] section config file. Config file is defined by user.
+inside the `[host]` section config file. Config file is defined by user.
 
 ##### Why gdeploy to install glusterfs?
 
@@ -64,7 +64,7 @@ tedious and repetitive task even using ansible playbooks alone.
 #### Installation of gdeploy:
 
 There are two ways to install gdeploy. This documentation is based on installation process
- on Fedora 23 on Virtual Machine Manager. 
+ on `Fedora 23` on **Virtual Machine Manager**. 
 
 1.  Clone it via github repository
 2.  Using Operating System’s package manager (use rpm package manager for Fedora 23 OS)
@@ -89,7 +89,7 @@ install pip
 install gcc
 install python-devel package
 
-These are commands that needs to be executed on Fedora 23 VM. They should also work fine 
+These are commands that needs to be executed on `Fedora 23` VM. They should also work fine 
 if you are using any other version of Fedora.
 
     sudo dnf -y install python-pip
@@ -101,7 +101,7 @@ Or
 
 Run the below mentioned packages to ensure gdeploy will run.
 
- yum install automake autoconf libtool flex bison openssl-devel libxml2-devel python-devel libaio-devel libibverbs-devel librdmacm-devel readline-devel lvm2-devel glib2-devel userspace-rcu-devel libcmocka-devel libacl-devel sqlite-devel redhat-rpm-config
+ ```yum install automake autoconf libtool flex bison openssl-devel libxml2-devel python-devel libaio-devel libibverbs-devel librdmacm-devel readline-devel lvm2-devel glib2-devel userspace-rcu-devel libcmocka-devel libacl-devel sqlite-devel redhat-rpm-config```
 
 It also depends on some other packages as well like ansible but those are 
 taken care by requirements.txt file. You'll get to see when you’ll run it.
