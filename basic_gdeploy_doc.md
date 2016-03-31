@@ -243,34 +243,34 @@ Below are the section's names that we would need to write our config file.
 #### Below is the sample of 2*2 distributed replication config file.
 
 
-   [hosts]
-   10.70.47.17
-   10.70.46.173
-   10.70.47.97
-   10.70.47.32
+   [hosts]  
+   10.70.47.17  
+   10.70.46.173  
+   10.70.47.97  
+   10.70.47.32  
+                  
+   [backend-setup]  
+   devices=/dev/vdb  
+         
+   [peer]  
+   manage=probe  
+ 
+   [volume]    
+   action=create   
+   volname=volume1    
+   transport=tcp,rdma    
+   replica=yes   
+   replica_count=2   
+   force=yes   
 
-   [backend-setup]
-   devices=/dev/vdb
+   [clients]   
+   action=mount   
+  volname=volume1   
+   hosts=192.168.124.1  
+   fstype=glusterfs   
+   client_mount_points=/home/poo/client_mount   
 
-   [peer]
-   manage=probe
-
-   [volume]
-   action=create
-   volname=volume1
-   transport=tcp,rdma
-   replica=yes
-   replica_count=2
-   force=yes
-
-   [clients]
-   action=mount
-  volname=volume1
-   hosts=192.168.124.1
-   fstype=glusterfs
-   client_mount_points=/home/poo/client_mount
-
-
+     
 
 ##### Usage:
 
