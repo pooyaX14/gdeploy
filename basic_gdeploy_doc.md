@@ -240,7 +240,7 @@ Below are the section's names that we would need to write our config file.
 * [clients]
 
 
-#### Below is the sample of 2*2 distributed replication config file.
+#### Below is the sample of 2*2 distributed replication config file:
 
 
    [hosts]  
