@@ -67,10 +67,10 @@ gdeploy configuration file can be used for:
 There are two ways to install gdeploy. This documentation is based on installation process
  on Fedora 23 on Virtual Machine Manager. 
 
-1.  Clone it via github repository
-1.  Using Operating System’s package manager (use rpm package manager for Fedora 23 OS)
+  Clone it via github repository
+  Using Operating System’s package manager (use rpm package manager for Fedora 23 OS)
 
-1.) Installation procedure for gdeploy using github clone.
+#####  Installation procedure for gdeploy using github clone.
 
  Before we begin installing gdeploy, there are some prerequisites packages that you should 
  already have installed on your computer to use gdeploy.
@@ -172,7 +172,7 @@ You can do the same manually as well.
 
 
 
-### Installation of gdeploy using  operating system's package manager:
+##### Installation of gdeploy using  operating system's package manager:
 
 Download gdeploy ( .rpm file for Fedora OS ) from here→ http://download.gluster.org/pub/gluster/gdeploy/2.0/
 
