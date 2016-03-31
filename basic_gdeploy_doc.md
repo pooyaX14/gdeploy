@@ -46,10 +46,10 @@ tedious and repetitive task even using ansible playbooks alone.
 
 ###### gdeploy configuration file can be used for:
 
-    # [hosts] section includes ip addresses of all the machines which you want to peer probe.
-    # Backend setup configurations on any number of machines or nodes.
-    # Gluster cluster setup (Volume configuration)
-    # Features configurations like:
+    1. [hosts] section includes ip addresses of all the machines which you want to peer probe.
+    1. Backend setup configurations on any number of machines or nodes.
+    2. Gluster cluster setup (Volume configuration)
+    1. Features configurations like:
         * NFS-Ganesha configuration
         * Samba configuration
           * Snapshot configuration.
@@ -58,7 +58,7 @@ tedious and repetitive task even using ansible playbooks alone.
         * RH-subscription
         * firewalld
         * yum
-     * ctdb
+        * ctdb
 
 
 #### Installation of gdeploy:
