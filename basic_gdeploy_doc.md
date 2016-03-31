@@ -62,7 +62,7 @@ gdeploy configuration file can be used for:
      * ctdb
 
 
-Installation of gdeploy:
+#### Installation of gdeploy:
 
 There are two ways to install gdeploy. This documentation is based on installation process
  on Fedora 23 on Virtual Machine Manager. 
@@ -98,12 +98,11 @@ if you are using any other version of Fedora.
     dnf install redhat-rpm-config
     dnf install python-devel
 
-Or
+Or  
+
 Run the below mentioned packages to ensure gdeploy will run.
 
- yum install automake autoconf libtool flex bison openssl-devel libxml2-devel python-devel
- libaio-devel libibverbs-devel librdmacm-devel readline-devel lvm2-devel glib2-devel 
-userspace-rcu-devel libcmocka-devel libacl-devel sqlite-devel redhat-rpm-config
+ yum install automake autoconf libtool flex bison openssl-devel libxml2-devel python-devel libaio-devel libibverbs-devel librdmacm-devel readline-devel lvm2-devel glib2-devel userspace-rcu-devel libcmocka-devel libacl-devel sqlite-devel redhat-rpm-config
 
 It also depends on some other packages as well like ansible but those are 
 taken care by requirements.txt file. You'll get to see when you’ll run it.
@@ -163,8 +162,8 @@ You can do the same manually as well.
     python setup.py install
 
 
-6.) If you have properly followed all the steps, gdeploy should be installed on your machine. To
-    check this, you can run command gdeploy --version. The output should look like this.
+ If you have properly followed all the steps, gdeploy should be installed on your machine. To
+  check this, you can run command gdeploy --version. The output should look like this.
 
     [poo@poohostname /]$ gdeploy --version
     gdeploy 2.0
@@ -187,7 +186,7 @@ Prerequisites to install gdeploy:
 These are the commands that needs to be executed to install the prerequisites on Fedora 23 VM.
 
     *  dnf install ansible
-    #  dnf install python-eventlet
+    *  dnf install python-eventlet
 
 When you installed the above packages, go ahead and install the gdeploy by running the 
 below command from the directory where you downloaded it. You need to be the root user 
