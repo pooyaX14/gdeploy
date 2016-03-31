@@ -1,4 +1,5 @@
-#### Introduction of gdeploy and how to use gdeploy to configure glusterfs: 
+#### Introduction of gdeploy and how to use gdeploy to configure glusterfs
+-----
 
 This document is intended to give a basic overview of the gdeploy tool like,
 what is gdeploy, what does it do, and how you can use it.
