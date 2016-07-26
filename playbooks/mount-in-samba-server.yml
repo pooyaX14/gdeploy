@@ -7,7 +7,7 @@
   - name: Create the dir to mount the volume, skips if present
     file: path={{ item }} state=directory
 
-    with_items: smb_mountpoint
+    with_items: "{{ smb_mountpoint }}"
 
   - name: Mount the volumes
     mount: name={{ item }}
@@ -16,7 +16,7 @@
            opts=acl,
            state=mounted
 
-    with_items: smb_mountpoint
+    with_items: "{{ smb_mountpoint }}"
 
   - name: Provide permissions using setfacl
     command: setfacl -m user:"{{ smb_username }}":rwx "{{smb_mountpoint}}"

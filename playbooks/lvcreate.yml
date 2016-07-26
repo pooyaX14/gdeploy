@@ -5,6 +5,9 @@
 
   tasks:
       - name: Create LVs with specified size for the VGs
-        lvol: lv={{ item.name }} size={{ item.size }} vg={{ item.vg }}
-              force="{{ force }}"
-        with_items: lvs
+        lv: action=create lvtype="{{ lvtype }}" lvname={{ item.lv }}
+            size={{ item.size }} vgname={{ item.vg }} extent={{ item.extent }}
+            chunksize="{{ chunksize }}" poolmetadatasize="{{ poolmetadatasize }}"
+            poolname={{ item.lv }}
+            pvname="{{ pvname }}"
+        with_items: "{{ lvnamelist }}"

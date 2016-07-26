@@ -1,4 +1,3 @@
-#!/usr/bin/python
 """
 Add functions corresponding to each of the actions in the json file.
 The function should be named as follows <feature name>_<action_name>
@@ -75,7 +74,7 @@ def clients_unmount(section_dict):
     for mnt, host in zip(mntpts, clients):
         filename = helpers.get_file_dir_path(Global.host_vars_dir, host)
         helpers.touch_file(filename)
-        helpers.create_yaml_dict('mountpoint', mnt, filename)
+        helpers.create_yaml_dict('mountpoint', mnt, filename, False)
     section_dict['clients'] = clients
     helpers.write_to_inventory('clients', clients)
     del section_dict['hosts']

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*- #
 #
 # Copyright 2015 Nandaja Varma <nvarma@redhat.com>
@@ -15,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+# USA.
 #
 #
 #    yaml_writer.py
@@ -185,10 +185,10 @@ class BackendSetup(Helpers):
                 return
             self.vgs = self.set_default('vgs')
         self.section_dict['vgs'] = self.vgs
-        if not self.vgs:
+        if self.vgs:
             if not self.bricks:
                 self.device_count = len(self.vgs)
-            return
+                return
         data = []
         if self.device_count != len(self.section_dict['vgs']):
             if self.device_count > 1 and len(self.vgs) == 1:
@@ -303,8 +303,10 @@ class BackendSetup(Helpers):
             return
         lvols = ['/dev/%s/%s' % (i, j.split(':')[0]) for i, j in
                                       zip(self.vgs, self.lvs)]
-        self.section_dict['lvols'] = lvols
-        if self.section_dict['lvols']:
+        if lvols:
+            self.section_dict['lvols'] = lvols
+            self.section_dict['opts'] = "-f -K -i size=512 -d sw=10,su=128k -n size=8192"
+            self.section_dict['fstype'] = "xfs"
             self.run_playbook(FSCREATE_YML)
 
     def write_mount_options(self):
@@ -394,15 +396,6 @@ class BackendSetup(Helpers):
         return
 
 
-    def correct_brick_format(self, brick_list):
-        bricks = []
-        for brick in brick_list:
-            if not brick.startswith('/dev/'):
-                bricks.append('/dev/' + brick)
-            else:
-                bricks.append(brick)
-        return bricks
-
     def sub_directory_check(self, brick_dir):
         if len(brick_dir) == 1:
             brick_dir = brick_dir * len(self.mountpoints)
@@ -420,56 +413,6 @@ class BackendSetup(Helpers):
         return brick_dir
 
 
-    def perf_spec_data_write(self):
-        '''
-        Now this one looks dirty. Couldn't help it.
-        This one reads the performance related data like
-        number of data disks and stripe unit size  if
-        the option disk type is provided in the config.
-        Some calculations are made as to enhance
-        performance
-        '''
-        disktype = self.get_options('disktype')
-        if disktype:
-            perf = dict(disktype=disktype[0].lower())
-            if perf['disktype'] not in ['raid10', 'raid6', 'jbod']:
-                msg = "Unsupported disk type!"
-                print "\nError: " + msg
-                Global.logger.error(msg)
-                self.cleanup_and_quit()
-            if perf['disktype'] != 'jbod':
-                diskcount = self.get_options('diskcount')
-                if not diskcount:
-                    print "Error: 'diskcount' not provided for " \
-                    "disktype %s" % perf['disktype']
-                perf['diskcount'] = int(diskcount[0])
-                stripe_size = self.get_options('stripesize')
-                if not stripe_size and perf['disktype'] == 'raid6':
-                    print "Error: 'stripesize' not provided for " \
-                    "disktype %s" % perf['disktype']
-                if stripe_size:
-                    perf['stripesize'] = int(stripe_size[0])
-                    if perf['disktype'] == 'raid10' and perf[
-                            'stripesize'] != 256:
-                        warn = "Warning: We recommend a stripe unit size of 256KB " \
-                            "for RAID 10"
-                        Global.logger.warning(warn)
-                        if warn not in Global.warnings:
-                            Global.warnings.append(warn)
-                else:
-                    perf['stripesize'] = 256
-                perf['dalign'] = {
-                    'raid6': perf['stripesize'] * perf['diskcount'],
-                    'raid10': perf['stripesize'] * perf['diskcount']
-                }[perf['disktype']]
-            else:
-                perf['dalign'] = 256
-                perf['diskcount'] = perf['stripesize'] = 0
-        else:
-            perf = dict(disktype='jbod')
-            perf['dalign'] = 256
-            perf['diskcount'] = perf['stripesize'] = 0
-        self.create_var_files(perf, False, Global.group_file)
 
     def insufficient_param_count(self, section, count):
         msg = "Please provide %s names for %s devices " \

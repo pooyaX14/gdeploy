@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
 # Copyright 2016 Nandaja Varma <nvarma@redhat.com>
@@ -15,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+# USA.
 #
 
 import os, json
@@ -42,11 +42,22 @@ def get_feature_dir(section):
     playbook returned back by the function
     '''
     global helpers, section_name
+    Global.master = None
     Global.current_hosts = Global.hosts
 
 
     section_name = helpers.get_section_pattern(section)
-    section_dir = os.path.join(gdeployfeatures.__path__[0], section_name)
+    if not section_name:
+        return
+
+    try:
+        section_dir = os.path.join(gdeployfeatures.__path__[0], section_name)
+    except:
+        print "Error: Could not find the installation path for "\
+        "'gdeployfeatures' module. Please check the installation of gdeploy"
+        helpers.cleanup_and_quit()
+
+
     if not os.path.isdir(section_dir):
         return
 
@@ -61,8 +72,13 @@ def get_feature_dir(section):
 
     feature_func = getattr(gdeployfeatures, section_name)
     feature_mod = getattr(feature_func, section_name)
-    feature_call = getattr(feature_mod, section_name + '_' + section_dict[
-        'action'].replace('-', '_'))
+    try:
+        feature_call = getattr(feature_mod, section_name + '_' + section_dict[
+            'action'].replace('-', '_'))
+    except:
+        print "Error: No method found for action %s" %(section_name +
+                '_' + section_dict['action'])
+        helpers.cleanup_and_quit()
 
     section_dict, yml = feature_call(section_dict)
 
@@ -123,8 +139,9 @@ def get_action_data(section, section_dir, section_dict):
     json_data.close()
     action_dict = data[section_name]["action"].get(section_dict.get("action"))
     if not action_dict:
-        print "\nError: We could not find the operations corresponding " \
-                "to the action specified. Check your configuration file"
+        print "\nWarning: We could not find the operations corresponding " \
+                "to the action specified for the section {0}. "\
+                "Skipping this section.".format(section_name)
         return False
     else:
         return action_dict

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
 # Copyright 2015 Nandaja Varma <nvarma@redhat.com>
@@ -15,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+# USA.
 import os
 import tempfile
 
@@ -32,6 +32,8 @@ class Global(object):
     master = None
     brick_hosts = []
     log_file = os.path.expanduser('~/.gdeploy/logs/gdeploy.log')
+    templates_dir = os.path.expanduser('~/.gdeploy/templates')
+    extras = '/usr/share/ansible/gdeploy/extras/templates'
     hosts = []
     current_hosts = []
     current_host = None
@@ -50,3 +52,8 @@ class Global(object):
                         'ansible_playbooks.yml')
 
 
+
+    #HEKETI DATA
+
+    port = None
+    server = None

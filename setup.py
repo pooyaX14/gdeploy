@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="gdeploy",
-    version="2.0",
+    version="2.1.dev1",
     author="Nandaja Varma",
     author_email="nandaja.varma@gmail.com",
     packages=[  'gdeploylib', 'gdeploycore', 'gdeployfeatures',
@@ -14,7 +14,9 @@ setup(
                 'gdeployfeatures/service', 'gdeployfeatures/shell',
                 'gdeployfeatures/nfs_ganesha', 'gdeployfeatures/script',
                 'gdeployfeatures/volume', 'gdeployfeatures/clients',
-                'gdeployfeatures/peer'
+                'gdeployfeatures/peer', 'gdeployfeatures/pv',
+                'gdeployfeatures/vg',  'gdeployfeatures/lv',
+                'gdeployfeatures/openshift_ctl',
              ],
     scripts=[
         'gdeploy/gdeploy'

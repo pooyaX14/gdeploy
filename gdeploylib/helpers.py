@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
 # Copyright 2015 Nandaja Varma <nvarma@redhat.com>
@@ -15,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+# USA.
 #
 #    helpers.py
 #    ---------
@@ -283,6 +283,11 @@ class Helpers(Global, YamlWriter):
         for c in xrange(ord(c1), ord(c2)+1):
             yield chr(c)
 
+    def unique(self, mylist):
+        uniquelist = []
+        [uniquelist.append(item) for item in mylist if item not in
+                uniquelist]
+        return uniquelist
 
 
     def check_backend_setup_format(self):
@@ -307,9 +312,9 @@ class Helpers(Global, YamlWriter):
         return not is_subdir
 
 
-    def get_section_dict(self, pattern):
+    def get_section_dict(self, section_dict, pattern):
         d = []
-        for k, v in Global.sections.iteritems():
+        for k, v in section_dict.iteritems():
             if re.search(pattern, k):
                 d.append(v)
         return d
@@ -341,6 +346,7 @@ class Helpers(Global, YamlWriter):
             if not section_dict:
                 section_dict = self.section_dict
         if section_dict:
+            section_dict['master'] = Global.master
             self.filename = Global.group_file
             self.create_var_files(section_dict)
         yml = self.get_file_dir_path(Global.base_dir, yaml_file)
@@ -365,12 +371,70 @@ class Helpers(Global, YamlWriter):
             return [var]
         return var
 
+    def correct_brick_format(self, brick_list):
+        bricks = []
+        for brick in brick_list:
+            if not brick.startswith('/dev/'):
+                bricks.append('/dev/' + brick)
+            else:
+                bricks.append(brick)
+        return bricks
+
     def volname_formatter(self, section_dict):
         volname = section_dict.get('volname')
         if not volname:
             return section_dict
         section_dict['volname'] = self.split_volume_and_hostname(volname)
         return section_dict
+
+    def perf_spec_data_write(self):
+        '''
+        Now this one looks dirty. Couldn't help it.
+        This one reads the performance related data like
+        number of data disks and stripe unit size  if
+        the option disk type is provided in the config.
+        Some calculations are made as to enhance
+        performance
+        '''
+        disktype = self.config_get_options('disktype', False)
+        if disktype:
+            perf = dict(disktype=disktype[0].lower())
+            if perf['disktype'] not in ['raid10', 'raid6', 'jbod']:
+                msg = "Unsupported disk type!"
+                print "\nError: " + msg
+                Global.logger.error(msg)
+                self.cleanup_and_quit()
+            if perf['disktype'] != 'jbod':
+                diskcount = self.config_get_options('diskcount', True)
+                perf['diskcount'] = int(diskcount[0])
+                stripe_size = self.config_get_options('stripesize', False)
+                if not stripe_size and perf['disktype'] == 'raid6':
+                    print "Error: 'stripesize' not provided for " \
+                    "disktype %s" % perf['disktype']
+                    self.cleanup_and_quit()
+                if stripe_size:
+                    perf['stripesize'] = int(stripe_size[0])
+                    if perf['disktype'] == 'raid10' and perf[
+                            'stripesize'] != 256:
+                        warn = "Warning: We recommend a stripe unit size of 256KB " \
+                            "for RAID 10"
+                        Global.logger.warning(warn)
+                        if warn not in Global.warnings:
+                            Global.warnings.append(warn)
+                else:
+                    perf['stripesize'] = 256
+                perf['dalign'] = {
+                    'raid6': perf['stripesize'] * perf['diskcount'],
+                    'raid10': perf['stripesize'] * perf['diskcount']
+                }[perf['disktype']]
+            else:
+                perf['dalign'] = 256
+                perf['diskcount'] = perf['stripesize'] = 0
+        else:
+            perf = dict(disktype='jbod')
+            perf['dalign'] = 256
+            perf['diskcount'] = perf['stripesize'] = 0
+        self.create_var_files(perf, False, Global.group_file)
 
     def create_inventory(self):
         if not os.path.isfile(Global.inventory):
@@ -387,11 +451,11 @@ class Helpers(Global, YamlWriter):
             pass
         try:
             hostname = Global.master or Global.current_hosts[0]
-            self.write_config('master', hostname, Global.inventory)
         except:
-            print "\nError: Insufficient host names or IPs. Please check " \
-            "your configuration file"
-            self.cleanup_and_quit()
+            print "\nWarning: Insufficient host names or IPs. Running  " \
+            "in the localhost"
+            hostname = "127.0.0.1"
+        self.write_config('master', hostname, Global.inventory)
 
     def call_config_parser(self):
         config = ConfigParser.ConfigParser(allow_no_value=True)

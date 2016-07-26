@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*- #
 #
 # Copyright 2016 Nandaja Varma <nvarma@redhat.com>
@@ -15,13 +14,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+# USA.
 
 # ALL features
 
 feature_list = ['snapshot', 'quota', 'yum', 'geo_replication', 'ctdb',
 'firewalld', 'nfs_ganesha', 'service', 'rh_subscription', 'shell',
-'update_file', 'script', 'volume', 'peer', 'clients']
+'update_file', 'script', 'volume', 'peer', 'clients', 'pv', 'vg', 'lv',
+'openshift_ctl']
 # All the defaults values used in gdeploy
 
 
@@ -61,11 +62,16 @@ SELINUX_YML = 'set-selinux-labels.yml'
 MOUNT_YML = 'mount.yml'
 FSCREATE_YML = 'fscreate.yml'
 PVCREATE_YML = 'pvcreate.yml'
+PVRESIZE_YML = 'pvresize.yml'
 LVCONVERT_YML = 'lvconvert.yml'
 LVCREATE_YML = 'lvcreate.yml'
+THINLVCREATE_YML = 'thin_lvcreate.yml'
+LVCHANGE_YML = 'lvchange.yml'
 VGEXTEND_YML = 'vgextend.yml'
 GLUSTER_LV_YML = 'auto_lvcreate_for_gluster.yml'
 VGCREATE_YML = 'vgcreate.yml'
+
+SETUP_CACHE_YML = "cache_setup.yml"
 
 TUNE_YML = 'tune-profile.yml'
 
@@ -73,7 +79,6 @@ TUNE_YML = 'tune-profile.yml'
 BRESET_YML = 'backend-reset.yml'
 
 
-GLUSTERD_YML = 'glusterd-start.yml'
 PROBE_YML = 'gluster-peer-probe.yml'
 DETACH_YML = 'gluster-peer-detach.yml'
 
@@ -184,7 +189,12 @@ GANESHA_VOL_EXPORT = 'gluster-volume-export-ganesha.yml'
 GANESHA_DISABLE = 'disable-nfs-ganesha.yml'
 GANESHA_ADD_NODE = 'ganesha-cluster-add.yml'
 GANESHA_DELETE_NODE = 'ganesha-cluster-delete.yml'
-
+DEFINE_SERVICE_PORTS = 'define_service_ports.yml'
 
 RUN_SCRIPT = 'run-script.yml'
 
+
+# Kubectl
+
+OC_CREATE = 'oc-create.yml'
+OC_DELETE = 'oc-delete.yml'

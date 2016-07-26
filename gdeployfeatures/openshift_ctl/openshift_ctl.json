@@ -1,0 +1,36 @@
+{
+  "openshift_ctl": {
+    "action": {
+      "create": {
+        "options": [
+          {
+            "required": "true",
+            "name": ["filename", "resourcename"]
+          },
+          {
+            "required": "false",
+            "name": "filetype",
+            "default": "json"
+          },
+          {
+            "required": "false",
+            "name": "variable"
+          }
+        ]
+      },
+      "delete": {
+        "options": [
+          {
+            "required": "false",
+            "name": ["filename", "resourcename", "label", "uuid"]
+          },
+          {
+            "required": "false",
+            "name": "type",
+            "default": "pods"
+          }
+        ]
+      }
+    }
+  }
+}
