@@ -11,3 +11,4 @@ examples
    set_options_volumes
    subscription
    package_installation
+   disable_repos
