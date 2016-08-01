@@ -8,4 +8,6 @@ examples
    2x2-volume-create
    backend-setup
    starting_services
-
+   set_options_volumes
+   subscription
+   package_installation
